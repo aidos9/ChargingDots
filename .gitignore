@@ -1,0 +1,8 @@
+# The theos compile extras
+.theos
+
+#macOS file
+.DS_STORE
+
+# The compiled debs directory
+packages

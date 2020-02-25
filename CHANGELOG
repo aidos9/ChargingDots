@@ -1,0 +1,23 @@
+v0.5.0 - Planned
+* OLED dots (Experimental) [*]
+
+v0.4.0 - Planned
+* Assign individual dots colours [*]
+* Circle mode [*]
+* Outline mode [*]
+* Redesign mode interface [*]
+
+v0.3.0
+* Added an option to change the rounding method for dots mode.
+* Added an option to choose view orientation.
+* Added an option to hide the date label.
+* Redesigned preferences.
+* Renamed width property to length.
+* Fixed bug where the dots would not be properly centred in their parent view.
+
+v0.2.0
+* Increased max Y-Offset values
+* Added X-Offset
+* Fixed Y-Offset not working after respring
+* Fix flashing dot on 100%
+* Fix bug where disabling and re-enabling pulse animation wouldn't work

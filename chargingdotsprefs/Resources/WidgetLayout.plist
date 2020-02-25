@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>items</key>
+		<array>
+			<!-- Orientation -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Orientation</string>
+				<key>footerText</key>
+				<string>Change the orientation of the dots or bar on the lockscreen to vertical or horizontal.</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSegmentCell</string>
+				<key>default</key>
+				<string>Horizontal</string>
+				<key>validValues</key>
+				<array>
+					<string>Horizontal</string>
+					<string>Vertical</string>
+				</array>
+				<key>validTitles</key>
+				<array>
+					<string>Horizontal</string>
+					<string>Vertical</string>
+				</array>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>orientation</string>
+				<key>PostNotification</key>
+				<string>orientationChanged</string>
+			</dict>
+
+			<!-- View Anchor -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Anchor View</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSegmentCell</string>
+				<key>default</key>
+				<string>Center</string>
+				<key>validValues</key>
+				<array>
+					<string>Left</string>
+					<string>Center</string>
+					<string>Right</string>
+				</array>
+				<key>validTitles</key>
+				<array>
+					<string>Left</string>
+					<string>Center</string>
+					<string>Right</string>
+				</array>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>anchorPosition</string>
+				<key>PostNotification</key>
+				<string>anchorPositionChanged</string>
+			</dict>
+
+			<!-- X-Offset -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>X-Offset</string>
+				<key>footerText</key>
+				<string>Changes where the dots are positioned in the x-axis (left/right).</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<real>0</real>
+				<key>max</key>
+				<real>400</real>
+				<key>min</key>
+				<real>-400</real>
+				<key>isSegmented</key>
+				<false/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>xOffset</string>
+				<key>PostNotification</key>
+				<string>xOffsetChanged</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSwitchCell</string>
+				<key>label</key>
+				<string>Enabled</string>
+				<key>default</key>
+				<false/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>xOffsetEnabled</string>
+				<key>PostNotification</key>
+				<string>xOffsetChanged</string>
+				<!-- We can call the same method since the x-offset will probably need to be reset back to 0 or moved anyway -->
+			</dict>
+
+			<!-- Y Offset -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Y-Offset</string>
+				<key>footerText</key>
+				<string>Changes where the dots are positioned in the y-axis (up/down).</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<real>0</real>
+				<key>max</key>
+				<real>1000</real>
+				<key>min</key>
+				<real>-500</real>
+				<key>isSegmented</key>
+				<false/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>yOffset</string>
+				<key>PostNotification</key>
+				<string>yOffsetChanged</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSwitchCell</string>
+				<key>label</key>
+				<string>Enabled</string>
+				<key>default</key>
+				<false/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>yOffsetEnabled</string>
+				<key>PostNotification</key>
+				<string>yOffsetChanged</string>
+				<!-- We can call the same method since the y-offset will probably need to be reset back to 0 or moved anyway -->
+			</dict>
+
+			<!-- Length, ensuring this value is 0 < x <= 1 is done in the PreferencesManager -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Length</string>
+				<key>footerText</key>
+				<string>Changes the length of the view containing the dots or bar. Essentially increasing the spacing of the dots or length of the bar.</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<real>0.65</real>
+				<key>max</key>
+				<real>1.0</real>
+				<key>min</key>
+				<real>0.01</real>
+				<key>isSegmented</key>
+				<false/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>parentViewLength</string>
+				<key>PostNotification</key>
+				<string>parentViewLengthChanged</string>
+			</dict>
+
+			<!-- Dot Radius, ensuring this value is 0 < x <= 1 is done in the PreferencesManager -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Radius</string>
+				<key>footerText</key>
+				<string>Changes the radius and size of the dots when in dot mode or the height of the bar when in bar mode.</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<real>0.75</real>
+				<key>max</key>
+				<real>1.0</real>
+				<key>min</key>
+				<real>0.01</real>
+				<key>isSegmented</key>
+				<false/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>dotRadius</string>
+				<key>PostNotification</key>
+				<string>dotRadiusChanged</string>
+			</dict>
+
+			<!-- Number of dots group -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Number Of Dots</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<integer>7</integer>
+				<key>max</key>
+				<integer>10</integer>
+				<key>min</key>
+				<integer>3</integer>
+				<key>isSegmented</key>
+				<true/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>numberOfDots</string>
+				<key>PostNotification</key>
+				<string>numberOfDotsChanged</string>
+			</dict>
+		</array>
+		<key>title</key>
+		<string>Layout</string>
+	</dict>
+</plist>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<!-- Configuration -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Configure</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enabled</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>enabled</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Show all the time</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>showAllTime</string>
+			<key>PostNotification</key>
+			<string>showAllTimeChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Hide date label</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>hideDateLabel</string>
+			<key>PostNotification</key>
+			<string>hideDateLabelChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>CHDWidgetLayoutListController</string>
+			<key>label</key>
+			<string>Layout</string>
+			<key>isController</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>CHDColoursRootListController</string>
+			<key>label</key>
+			<string>Colors</string>
+			<key>isController</key>
+			<true/>
+		</dict>
+
+		<!-- Mode -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Mode</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<string>Dots</string>
+			<key>validValues</key>
+			<array>
+				<string>Dots</string>
+				<string>Bar</string>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Dots</string>
+				<string>Bar</string>
+			</array>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>indicatorMode</string>
+			<key>PostNotification</key>
+			<string>indicatorModeChanged</string>
+		</dict>
+
+		<!-- Rounding -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Rounding</string>
+			<key>footerText</key>
+			<string>Whether or not the number of dots displayed should be rounded down, up or to the nearest whole number.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>default</key>
+			<string>Down</string>
+			<key>validValues</key>
+			<array>
+				<string>Down</string>
+				<string>Nearest</string>
+				<string>Up</string>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Down</string>
+				<string>Nearest</string>
+				<string>Up</string>
+			</array>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>roundingStyle</string>
+			<key>PostNotification</key>
+			<string>roundingStyleChanged</string>
+		</dict>
+
+		<!-- Reset -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Reset</string>
+			<key>footerText</key>
+			<string>Resets all settings back to their default values, this WILL respring your device.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Reset Settings</string>
+			<key>action</key>
+			<string>resetSettings</string>
+		</dict>
+
+		<!-- Respring -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Respring</string>
+			<key>footerText</key>
+			<string>Only required if enabling or disabling!</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Respring</string>
+			<key>action</key>
+			<string>respring</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>ChargingDots</string>
+</dict>
+</plist>

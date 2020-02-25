@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
+			<string>Primary Color</string>
+			<key>fallback</key>
+			<string>0cf085</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>primaryColor</string>
+			<key>PostNotification</key>
+			<string>primaryColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
+			<string>Secondary Color</string>
+			<key>fallback</key>
+			<string>99b5b5b5</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>secondaryColor</string>
+			<key>PostNotification</key>
+			<string>secondaryColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
+			<string>Charging Color</string>
+			<key>fallback</key>
+			<string>ebab21</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>chargingColor</string>
+			<key>PostNotification</key>
+			<string>chargingColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enable Charging Color</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>hasChargingColor</string>
+			<key>PostNotification</key>
+			<string>hasChargingColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Pulse Charging Color</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>pulseChargingColor</string>
+			<key>PostNotification</key>
+			<string>pulseChargingColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>label</key>
+			<string>Pulse Duration: </string>
+			<key>default</key>
+			<string>1.0</string>
+			<key>isDecimalPad</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>fadeAnimationDuration</string>
+			<key>PostNotification</key>
+			<string>fadeAnimationDurationChanged</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Colours</string>
+</dict>
+</plist>
