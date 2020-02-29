@@ -26,10 +26,12 @@
   [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"primaryColor"];
   [PreferencesManager setValue: DEFAULT_SECONDARY_COLOR forKey: @"secondaryColor"];
   [PreferencesManager setValue: DEFAULT_CHARGING_COLOR forKey: @"chargingColor"];
+  [PreferencesManager setValue: DEFAULT_LOW_POWER_COLOR forKey: @"lowPowerColor"];
   [PreferencesManager setValue: DEFAULT_ANCHOR_POSITION forKey: @"anchorPosition"];
   [PreferencesManager setValue: [NSNumber numberWithInt: DEFAULT_NUMBER_OF_DOTS] forKey: @"numberOfDots"];
   [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_SHOW_ALL_TIME] forKey: @"showAllTime"];
   [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_HAS_CHARGING_COLOR] forKey: @"hasChargingColor"];
+  [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_LOW_POWER_ENABLED] forKey: @"lowPowerColorEnabled"];
   [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_PULSE_CHARGING_COLOR] forKey: @"pulseChargingColor"];
   [PreferencesManager setValue: [NSNumber numberWithFloat: DEFAULT_Y_OFFSET] forKey: @"yOffset"];
   [PreferencesManager setValue: [NSNumber numberWithFloat: DEFAULT_X_OFFSET] forKey: @"xOffset"];
@@ -99,6 +101,28 @@
   }
 
   return [UIColor cscp_colorFromHexString: value];
+}
+
++(UIColor*) lowPowerColor {
+  NSString* value = [self valueForKey: @"lowPowerColor"];
+
+  if(value == nil || [value isEqual: @""])
+  {
+    value = DEFAULT_LOW_POWER_COLOR;
+  }
+
+  return [UIColor cscp_colorFromHexString: value];
+}
+
++(bool) lowPowerColorEnabled {
+  id value = [self valueForKey: @"lowPowerColorEnabled"];
+
+  if(value == nil)
+  {
+    return DEFAULT_LOW_POWER_ENABLED;
+  }
+
+  return [value boolValue];
 }
 
 +(AnchorPosition) anchorPosition {

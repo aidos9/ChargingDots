@@ -47,9 +47,41 @@
 			<key>cellClass</key>
 			<string>CSColorDisplayCell</string>
 			<key>label</key>
+			<string>Low Power Color</string>
+			<key>fallback</key>
+			<string>fec10a</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowPowerColor</string>
+			<key>PostNotification</key>
+			<string>lowPowerColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enable Low Power Color</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowPowerColorEnabled</string>
+			<key>PostNotification</key>
+			<string>lowPowerColorEnabledChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
 			<string>Charging Color</string>
 			<key>fallback</key>
-			<string>ebab21</string>
+			<string>0aa5fe</string>
 			<key>alpha</key>
 			<true/>
 			<key>defaults</key>
