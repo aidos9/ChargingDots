@@ -3,11 +3,11 @@
 @implementation CHDWidgetLayoutListController
 
 - (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [self loadSpecifiersFromPlistName:@"WidgetLayout" target:self];
-	}
+  if (!_specifiers) {
+    _specifiers = [self loadSpecifiersFromPlistName:@"WidgetLayout" target:self];
+  }
 
-	return _specifiers;
+  return _specifiers;
 }
 
 @end

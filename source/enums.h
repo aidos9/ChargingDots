@@ -17,7 +17,6 @@ typedef enum {
   Mode_Bar,
 } Mode;
 
-
 typedef enum {
   Orientation_Vertical,
   Orientation_Horizontal,

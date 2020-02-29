@@ -4,10 +4,10 @@
 
 // For explanations of what each method does see the header.
 @implementation ChargingParentViewBase
--(id) initWithFrame: (CGRect)frame {
-  self = [super initWithFrame: frame];
+- (id)initWithFrame:(CGRect)frame {
+  self = [super initWithFrame:frame];
 
-  [self setAlpha: 0.0f];
+  [self setAlpha:0.0f];
 
   self->dots = [[NSMutableArray alloc] init];
   self->mode = [PreferencesManager indicatorMode];
@@ -23,7 +23,7 @@
 }
 
 // This method is expensive so we will try and minimize any calls to it.
--(void) relayout {
+- (void)relayout {
   switch (self->mode) {
     case Mode_Dots: {
       [self layoutDots];
@@ -36,27 +36,32 @@
   }
 
   [self retrieveColors];
-  [self updateViewColors: true];
+  [self updateViewColors:true];
 
   CGRect newPosition;
 
-  if(self->anchorPosition != [PreferencesManager anchorPosition]){
+  if (self->anchorPosition != [PreferencesManager anchorPosition]) {
     switch ([PreferencesManager anchorPosition]) {
-      case Anchor_Left:{
-        newPosition = CGRectMake(0, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+      case Anchor_Left: {
+        newPosition =
+            CGRectMake(0, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
         break;
       }
-      case Anchor_Right:{
-        newPosition = CGRectMake([self.superview frame].size.width - self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+      case Anchor_Right: {
+        newPosition =
+            CGRectMake([self.superview frame].size.width - self.frame.size.width,
+                       self.frame.origin.y, self.frame.size.width, self.frame.size.height);
         break;
       }
-      case Anchor_Center:{
-        newPosition = CGRectMake([self.superview frame].size.width/2 - self.frame.size.width/2, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+      case Anchor_Center: {
+        newPosition =
+            CGRectMake([self.superview frame].size.width / 2 - self.frame.size.width / 2,
+                       self.frame.origin.y, self.frame.size.width, self.frame.size.height);
         break;
       }
     }
 
-    if([PreferencesManager xOffsetEnabled]) {
+    if ([PreferencesManager xOffsetEnabled]) {
       newPosition.origin.x += [PreferencesManager xOffset];
     }
 
@@ -66,7 +71,7 @@
   }
 }
 
--(void) indicatorModeChanged {
+- (void)indicatorModeChanged {
   if (self->mode == [PreferencesManager indicatorMode]) {
     return;
   }
@@ -86,50 +91,58 @@
   [self relayout];
 }
 
--(void) xChanged {
+- (void)xChanged {
   CGRect newPosition;
 
   switch (self->anchorPosition) {
-    case Anchor_Left:{
-      newPosition = CGRectMake(0, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+    case Anchor_Left: {
+      newPosition =
+          CGRectMake(0, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
       break;
     }
-    case Anchor_Right:{
-      newPosition = CGRectMake([self.superview frame].size.width - self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+    case Anchor_Right: {
+      newPosition = CGRectMake([self.superview frame].size.width - self.frame.size.width,
+                               self.frame.origin.y, self.frame.size.width, self.frame.size.height);
       break;
     }
-    case Anchor_Center:{
-      newPosition = CGRectMake([self.superview frame].size.width/2 - self.frame.size.width/2, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
+    case Anchor_Center: {
+      newPosition = CGRectMake([self.superview frame].size.width / 2 - self.frame.size.width / 2,
+                               self.frame.origin.y, self.frame.size.width, self.frame.size.height);
       break;
     }
   }
 
-  if([PreferencesManager xOffsetEnabled]) {
+  if ([PreferencesManager xOffsetEnabled]) {
     newPosition.origin.x += [PreferencesManager xOffset];
   }
 
   self.frame = newPosition;
 }
 
--(void) yChanged {
+- (void)yChanged {
   if ([PreferencesManager yOffsetEnabled]) {
-    CGRect newPosition = CGRectMake(self.frame.origin.x, [self.superview frame].size.height * Y_PERCENTAGE + [PreferencesManager yOffset], self.frame.size.width, self.frame.size.height);
+    CGRect newPosition =
+        CGRectMake(self.frame.origin.x,
+                   [self.superview frame].size.height * Y_PERCENTAGE + [PreferencesManager yOffset],
+                   self.frame.size.width, self.frame.size.height);
     self.frame = newPosition;
-  }else if(![PreferencesManager yOffsetEnabled]) {
-    CGRect newPosition = CGRectMake(self.frame.origin.x, [self.superview frame].size.height * Y_PERCENTAGE, self.frame.size.width, self.frame.size.height);
+  } else if (![PreferencesManager yOffsetEnabled]) {
+    CGRect newPosition =
+        CGRectMake(self.frame.origin.x, [self.superview frame].size.height * Y_PERCENTAGE,
+                   self.frame.size.width, self.frame.size.height);
     self.frame = newPosition;
   }
 }
 
--(void) updateBatteryLevel {
-  if(self->mode == Mode_Dots) {
+- (void)updateBatteryLevel {
+  if (self->mode == Mode_Dots) {
     [self updateViewColors];
-  }else if(self->mode == Mode_Bar){
+  } else if (self->mode == Mode_Bar) {
     [self updateBarPercentage];
   }
 }
 
--(void) retrieveColors {
+- (void)retrieveColors {
   self->primaryColor = [PreferencesManager primaryColor];
   self->secondaryColor = [PreferencesManager secondaryColor];
   self->chargingColor = [PreferencesManager chargingColor];
@@ -138,127 +151,139 @@
   self->hasChargingColor = [PreferencesManager hasChargingColor];
 }
 
--(void) colorChanged {
+- (void)colorChanged {
   [self retrieveColors];
-  [self updateViewColors: true]; // Force a recolor
+  [self updateViewColors:true];  // Force a recolor
 }
 
--(void) updateViewColors {
-  [self updateViewColors: false]; // Don't force a refresh of view colors.
+- (void)updateViewColors {
+  [self updateViewColors:false];  // Don't force a refresh of view colors.
 }
 
--(void) updateViewColors: (bool) force {
-  if(self->mode == Mode_Dots) {
-    [self updateViewColorsDots: force];
-  }else if(self->mode == Mode_Bar) {
+- (void)updateViewColors:(bool)force {
+  if (self->mode == Mode_Dots) {
+    [self updateViewColorsDots:force];
+  } else if (self->mode == Mode_Bar) {
     [self updateViewColorsBar];
   }
 }
 
--(void) updateViewColorsDots: (bool) force {
-
-  #ifdef DEBUG_BATTERY_PERCENTAGE
+- (void)updateViewColorsDots:(bool)force {
+#ifdef DEBUG_BATTERY_PERCENTAGE
   int comparisonNumberOfDotsColored;
-  switch([PreferencesManager roundingStyle]) {
+  switch ([PreferencesManager roundingStyle]) {
     case Round_Up: {
-      comparisonNumberOfDotsColored = ceilf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
+      comparisonNumberOfDotsColored =
+          ceilf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
       break;
     }
     case Round_Down: {
-      comparisonNumberOfDotsColored = floorf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
+      comparisonNumberOfDotsColored =
+          floorf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
       break;
     }
     case Round_Nearest: {
-      comparisonNumberOfDotsColored = roundf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
+      comparisonNumberOfDotsColored =
+          roundf([PreferencesManager numberOfDots] * DEBUG_BATTERY_PERCENTAGE);
       break;
     }
   }
 
-  #else
+#else
 
   int comparisonNumberOfDotsColored;
-  switch([PreferencesManager roundingStyle]) {
+  switch ([PreferencesManager roundingStyle]) {
     case Round_Up: {
-      comparisonNumberOfDotsColored = ceilf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
+      comparisonNumberOfDotsColored =
+          ceilf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
       break;
     }
     case Round_Down: {
-      comparisonNumberOfDotsColored = floorf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
+      comparisonNumberOfDotsColored =
+          floorf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
       break;
     }
     case Round_Nearest: {
-      comparisonNumberOfDotsColored = roundf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
+      comparisonNumberOfDotsColored =
+          roundf([PreferencesManager numberOfDots] * [UIDevice currentDevice].batteryLevel);
       break;
     }
   }
-  #endif
+#endif
 
-  #ifdef DEBUG_BATTERY_PERCENTAGE
-  if ([self isCharging] && [PreferencesManager numberOfDots] == comparisonNumberOfDotsColored && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE != 1.0f) {
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  if ([self isCharging] && [PreferencesManager numberOfDots] == comparisonNumberOfDotsColored &&
+      self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE != 1.0f) {
     comparisonNumberOfDotsColored -= 1;
   }
-  #else
-  if ([self isCharging] && [PreferencesManager numberOfDots] == comparisonNumberOfDotsColored && self->hasChargingColor && [UIDevice currentDevice].batteryLevel != 1.0f) {
+#else
+  if ([self isCharging] && [PreferencesManager numberOfDots] == comparisonNumberOfDotsColored &&
+      self->hasChargingColor && [UIDevice currentDevice].batteryLevel != 1.0f) {
     comparisonNumberOfDotsColored -= 1;
   }
-  #endif
+#endif
 
   // Don't bother changing any colors, should improve performance.
-  if(self->numberOfDotsColored == comparisonNumberOfDotsColored && !force) {
+  if (self->numberOfDotsColored == comparisonNumberOfDotsColored && !force) {
     return;
-  }else {
+  } else {
     self->numberOfDotsColored = comparisonNumberOfDotsColored;
   }
 
-  if ((!self->hasChargingColor || ![self isCharging] || (self->pulsingIndex >= 0 && self->pulsingIndex != self->numberOfDotsColored)) && self->chargingPulseAnimation != nil) {
+  if ((!self->hasChargingColor || ![self isCharging] ||
+       (self->pulsingIndex >= 0 && self->pulsingIndex != self->numberOfDotsColored)) &&
+      self->chargingPulseAnimation != nil) {
     [self->dots[self->pulsingIndex].layer removeAllAnimations];
     self->chargingPulseAnimation = nil;
     self->pulsingIndex = -1;
   }
 
   bool individualDotColorsEnabled = [PreferencesManager individualDotColorsEnabled];
-  bool lowPowerColorEnabled = [PreferencesManager lowPowerColorEnabled] && [[NSProcessInfo processInfo] isLowPowerModeEnabled];
+  bool lowPowerColorEnabled = [PreferencesManager lowPowerColorEnabled] &&
+                              [[NSProcessInfo processInfo] isLowPowerModeEnabled];
 
-  for(int i = 0; i < self->dots.count; i++) {
+  for (int i = 0; i < self->dots.count; i++) {
     if (i < self->numberOfDotsColored) {
       if (lowPowerColorEnabled) {
         self->dots[i].backgroundColor = self->lowPowerColor;
-      }else if (individualDotColorsEnabled) {
+      } else if (individualDotColorsEnabled) {
         self->dots[i].backgroundColor = self->individualColors[i];
-      }else {
+      } else {
         self->dots[i].backgroundColor = self->primaryColor;
       }
-    #ifdef DEBUG_BATTERY_PERCENTAGE
-    }else if ([self isCharging] && i == self->numberOfDotsColored && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE != 1.0f) {
-    #else
-    }else if ([self isCharging] && i == self->numberOfDotsColored && self->hasChargingColor && [UIDevice currentDevice].batteryLevel != 1.0f) {
-    #endif
+#ifdef DEBUG_BATTERY_PERCENTAGE
+    } else if ([self isCharging] && i == self->numberOfDotsColored && self->hasChargingColor &&
+               DEBUG_BATTERY_PERCENTAGE != 1.0f) {
+#else
+    } else if ([self isCharging] && i == self->numberOfDotsColored && self->hasChargingColor &&
+               [UIDevice currentDevice].batteryLevel != 1.0f) {
+#endif
       self->dots[i].backgroundColor = self->chargingColor;
       self->pulsingIndex = i;
 
       if ([PreferencesManager pulseChargingColor]) {
-        self->chargingPulseAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-        self->chargingPulseAnimation.duration=[PreferencesManager fadeAnimationDuration];
-        self->chargingPulseAnimation.repeatCount=HUGE_VALF;
-        self->chargingPulseAnimation.autoreverses=YES;
-        self->chargingPulseAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-        self->chargingPulseAnimation.toValue=[NSNumber numberWithFloat:0.0];
+        self->chargingPulseAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        self->chargingPulseAnimation.duration = [PreferencesManager fadeAnimationDuration];
+        self->chargingPulseAnimation.repeatCount = HUGE_VALF;
+        self->chargingPulseAnimation.autoreverses = YES;
+        self->chargingPulseAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+        self->chargingPulseAnimation.toValue = [NSNumber numberWithFloat:0.0];
 
         [self->dots[i].layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
       }
-    }else {
+    } else {
       self->dots[i].backgroundColor = self->secondaryColor;
     }
   }
 }
 
--(void) updateViewColorsBar {
-  if([self isCharging] && self->hasChargingColor) {
+- (void)updateViewColorsBar {
+  if ([self isCharging] && self->hasChargingColor) {
     self->barFill.backgroundColor = self->chargingColor;
     if ([PreferencesManager pulseChargingColor] && self->chargingPulseAnimation == nil) {
       [self addBarAnimation];
     }
-  }else {
+  } else {
     self->barFill.backgroundColor = self->primaryColor;
     [self removeAnimation];
   }
@@ -266,65 +291,72 @@
   self->bar.backgroundColor = self->secondaryColor;
 }
 
--(void) fadeIn {
+- (void)fadeIn {
   if (self.alpha == 1.0f) {
-    return; // So we don't get two fade ins
+    return;  // So we don't get two fade ins
   }
 
-  [self setAlpha: 0.0f];
+  [self setAlpha:0.0f];
 
-  [UIView animateWithDuration: SELF_FADE_ANIMATION_DURATION animations:^{
-        [self setAlpha:1.0f];
-    } completion: nil];
+  [UIView animateWithDuration:SELF_FADE_ANIMATION_DURATION
+                   animations:^{
+                     [self setAlpha:1.0f];
+                   }
+                   completion:nil];
 }
 
--(void) fadeOut {
+- (void)fadeOut {
   if (self.alpha == 0.0f) {
-    return; // So we don't get two fade outs
+    return;  // So we don't get two fade outs
   }
 
-  [self setAlpha: 1.0f];
+  [self setAlpha:1.0f];
 
-  [UIView animateWithDuration: SELF_FADE_ANIMATION_DURATION animations:^{
-        [self setAlpha:0.0f];
-    } completion: nil];
+  [UIView animateWithDuration:SELF_FADE_ANIMATION_DURATION
+                   animations:^{
+                     [self setAlpha:0.0f];
+                   }
+                   completion:nil];
 }
 
--(void) animationChanged {
+- (void)animationChanged {
   if ([PreferencesManager pulseChargingColor]) {
-    [self updateViewColors: true]; // This will create the animation on the right view whilst also checking the colors.
+    [self updateViewColors:true];  // This will create the animation on the right view whilst also
+                                   // checking the colors.
   } else {
     // We can manually remove the animation
     [self removeAnimation];
   }
 }
 
--(void) fadeAnimationDurationChanged {
+- (void)fadeAnimationDurationChanged {
   [self removeAnimation];
-  [self updateViewColors: true];
+  [self updateViewColors:true];
 }
 
--(void) addBarAnimation {
-  self->chargingPulseAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-  self->chargingPulseAnimation.duration=[PreferencesManager fadeAnimationDuration];
-  self->chargingPulseAnimation.repeatCount=HUGE_VALF;
-  self->chargingPulseAnimation.autoreverses=YES;
-  self->chargingPulseAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-  self->chargingPulseAnimation.toValue=[NSNumber numberWithFloat:0.0];
+- (void)addBarAnimation {
+  self->chargingPulseAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  self->chargingPulseAnimation.duration = [PreferencesManager fadeAnimationDuration];
+  self->chargingPulseAnimation.repeatCount = HUGE_VALF;
+  self->chargingPulseAnimation.autoreverses = YES;
+  self->chargingPulseAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+  self->chargingPulseAnimation.toValue = [NSNumber numberWithFloat:0.0];
 
-  [self->barFill.layer addAnimation: self->chargingPulseAnimation forKey:@"animateOpacity"];
+  [self->barFill.layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
 }
 
--(void) batteryStateChanged {
-  // We call this because if the state changes to not charging we no longer want to show the pulsing charge color.
-  [self updateViewColors: true]; // Force because the percentage charged may not have changed
+- (void)batteryStateChanged {
+  // We call this because if the state changes to not charging we no longer want to show the pulsing
+  // charge color.
+  [self updateViewColors:true];  // Force because the percentage charged may not have changed
 }
 
--(bool) isCharging {
-  return [UIDevice currentDevice].batteryState == UIDeviceBatteryStateFull || [UIDevice currentDevice].batteryState == UIDeviceBatteryStateCharging;
+- (bool)isCharging {
+  return [UIDevice currentDevice].batteryState == UIDeviceBatteryStateFull ||
+         [UIDevice currentDevice].batteryState == UIDeviceBatteryStateCharging;
 }
 
--(void) removeDots {
+- (void)removeDots {
   if (self->dots == nil) {
     return;
   }
@@ -332,15 +364,15 @@
   [self removeAnimation];
 
   while (self->dots.count > 0) {
-    [self->dots[self->dots.count-1] removeFromSuperview];
+    [self->dots[self->dots.count - 1] removeFromSuperview];
     [self->dots removeLastObject];
   }
 }
 
--(void) removeBar {
+- (void)removeBar {
   [self removeAnimation];
 
-  if(self->barFill != nil) {
+  if (self->barFill != nil) {
     [self->barFill removeFromSuperview];
     self->barFill = nil;
   }
@@ -351,14 +383,15 @@
   }
 }
 
--(void) removeAnimation {
+- (void)removeAnimation {
   if (self->mode == Mode_Dots) {
-    if (self->dots == nil || self->dots.count == 0 || self->pulsingIndex < 0 || self->pulsingIndex > self->dots.count) {
+    if (self->dots == nil || self->dots.count == 0 || self->pulsingIndex < 0 ||
+        self->pulsingIndex > self->dots.count) {
       return;
     }
     [self->dots[self->pulsingIndex].layer removeAllAnimations];
-  }else if(self->mode == Mode_Bar) {
-    if(self->barFill == nil) {
+  } else if (self->mode == Mode_Bar) {
+    if (self->barFill == nil) {
       return;
     }
     [self->barFill.layer removeAllAnimations];
@@ -369,19 +402,15 @@
 }
 
 // Default protocol implementations. Sub-classes should re-implement these
--(void) layoutDots{
-
+- (void)layoutDots {
 }
 
--(void) layoutBar {
-
+- (void)layoutBar {
 }
 
--(void) lengthChanged {
-
+- (void)lengthChanged {
 }
 
--(void) updateBarPercentage {
-
+- (void)updateBarPercentage {
 }
 @end

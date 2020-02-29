@@ -3,11 +3,11 @@
 @implementation CHDColourAssignmentListController
 
 - (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [self loadSpecifiersFromPlistName:@"ColourAssignment" target:self];
-	}
+  if (!_specifiers) {
+    _specifiers = [self loadSpecifiersFromPlistName:@"ColourAssignment" target:self];
+  }
 
-	return _specifiers;
+  return _specifiers;
 }
 
 @end

@@ -1,11 +1,13 @@
 // This header contains a number of constants that configure the default behaviour
 
-#define Y_PERCENTAGE 0.268f // Just a value that looked good on an iPhone X with no yOffset
-#define DEFAULT_THICKNESS 20 // The width for horizontal mode or the height for vertical mode.
-#define SELF_FADE_ANIMATION_DURATION 1.0f // The fade in/out animation duration. For showing the view when charging begins or ends.
+#define Y_PERCENTAGE 0.268f   // Just a value that looked good on an iPhone X with no yOffset
+#define DEFAULT_THICKNESS 20  // The width for horizontal mode or the height for vertical mode.
+#define SELF_FADE_ANIMATION_DURATION \
+  1.0f  // The fade in/out animation duration. For showing the view when charging begins or ends.
 #define DOMAIN_NAME @"com.aidos9.chargingdotsprefs"
 
-// These are a collection of default values for preferences. New preferences should define a default in here.
+// These are a collection of default values for preferences. New preferences should define a default
+// in here.
 #define DEFAULT_TWEAK_ENABLED true
 #define DEFAULT_PRIMARY_COLOR @"0cf085"
 #define DEFAULT_SECONDARY_COLOR @"99b5b5b5"
