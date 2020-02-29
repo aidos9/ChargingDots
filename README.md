@@ -20,7 +20,7 @@ If you have a problem, open an issue on this GitHub page, describe the problem a
 See the CHANGELOG file for upcoming features and past changes. Unimplemented features will have "\[\*\]" following their description. Please note these aren't guaranteed to be implemented just ideas that I am planning.
 
 ## Releases
-Each release will have its own branch starting from v0.3.0 to track changes.
+Each release will have its own branch starting from v0.3.0 to track changes. Master contains the latest stable version, future versions will also have their own branch for development. These may not be stable or even compile.
 
 ## Questions
 If you have any questions about something on here feel free to send me a PM on reddit: <a href="https://www.reddit.com/user/aidos9">https://www.reddit.com/user/aidos9</a> but please don't open an issue for a question.
