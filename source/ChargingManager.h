@@ -46,4 +46,6 @@
 -(void) indicatorModeChanged;
 -(void) fadeAnimationDurationChanged;
 -(void) roundingStyleChanged;
+-(void) individualDotColorsEnabledChanged;
+-(void) individualDotColorsChanged;
 @end

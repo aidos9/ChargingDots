@@ -72,6 +72,8 @@
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"indicatorModeChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"fadeAnimationDurationChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"roundingStyleChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"individualDotColorsEnabledChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"individualDotColorsChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
    // These are called when the battery changes states or percentage
   [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(batteryLevelDidChange:) name: UIDeviceBatteryLevelDidChangeNotification object: nil];
@@ -116,6 +118,10 @@ void notificationCallback (CFNotificationCenterRef center, void *observer, CFStr
     [self fadeAnimationDurationChanged];
   }else if([name isEqual: @"roundingStyleChanged"]) {
     [self roundingStyleChanged];
+  }else if([name isEqual: @"individualDotColorsEnabledChanged"]) {
+    [self individualDotColorsEnabledChanged];
+  }else if([name isEqual: @"individualDotColorsChanged"]) {
+    [self individualDotColorsChanged];
   }
 }
 
@@ -213,6 +219,18 @@ void notificationCallback (CFNotificationCenterRef center, void *observer, CFStr
 -(void) roundingStyleChanged {
   if(self->parent != nil) {
     [self->parent updateViewColors: true];
+  }
+}
+
+-(void) individualDotColorsEnabledChanged {
+  if(self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+-(void) individualDotColorsChanged {
+  if(self->parent != nil) {
+    [self->parent colorChanged];
   }
 }
 @end

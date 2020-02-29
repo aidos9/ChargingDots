@@ -27,7 +27,7 @@
 // This converts from degrees to radians
 +(Orientation) orientation;
 +(bool) individualDotColorsEnabled;
-+(NSArray*) individualDotColors; // An array of all the dot colours
++(NSArray<UIColor*>*) individualDotColors; // An array of all the dot colours
 
 //Base Methods used for low level operation with the preferences.
 +(void) setValue:(id)value forKey:(NSString*)key;

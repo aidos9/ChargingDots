@@ -133,6 +133,7 @@
   self->primaryColor = [PreferencesManager primaryColor];
   self->secondaryColor = [PreferencesManager secondaryColor];
   self->chargingColor = [PreferencesManager chargingColor];
+  self->individualColors = [PreferencesManager individualDotColors];
   self->hasChargingColor = [PreferencesManager hasChargingColor];
 }
 
@@ -214,9 +215,15 @@
     self->pulsingIndex = -1;
   }
 
+  bool individualDotColorsEnabled = [PreferencesManager individualDotColorsEnabled];
+
   for(int i = 0; i < self->dots.count; i++) {
     if (i < self->numberOfDotsColored) {
-      self->dots[i].backgroundColor = self->primaryColor;
+      if (individualDotColorsEnabled) {
+        self->dots[i].backgroundColor = self->individualColors[i];
+      }else {
+        self->dots[i].backgroundColor = self->primaryColor;
+      }
     #ifdef DEBUG_BATTERY_PERCENTAGE
     }else if ([self isCharging] && i == self->numberOfDotsColored && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE != 1.0f) {
     #else

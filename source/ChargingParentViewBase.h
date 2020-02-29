@@ -14,6 +14,7 @@
   Mode mode;
   float lengthConstant;
   int numberOfDotsColored;
+  NSArray<UIColor*>* individualColors;
   // An array for the dots so we can access them to assign colours.
   NSMutableArray<UIView*>* dots;
   // The background bar

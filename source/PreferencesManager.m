@@ -348,7 +348,7 @@
   return [value boolValue];
 }
 
-+(NSArray*) individualDotColors {
++(NSArray<UIColor*>*) individualDotColors {
   NSMutableArray* colors = [[NSMutableArray alloc] init];
 
   for (int i = 1; i <= 10; i++) {

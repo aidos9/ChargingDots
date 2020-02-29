@@ -20,7 +20,7 @@
 			<key>key</key>
 			<string>color1</string>
 			<key>PostNotification</key>
-			<string>color1Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -38,7 +38,7 @@
 			<key>key</key>
 			<string>color2</string>
 			<key>PostNotification</key>
-			<string>color2Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -56,7 +56,7 @@
 			<key>key</key>
 			<string>color3</string>
 			<key>PostNotification</key>
-			<string>color3Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -74,7 +74,7 @@
 			<key>key</key>
 			<string>color4</string>
 			<key>PostNotification</key>
-			<string>color4Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -92,7 +92,7 @@
 			<key>key</key>
 			<string>color5</string>
 			<key>PostNotification</key>
-			<string>color5Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -110,7 +110,7 @@
 			<key>key</key>
 			<string>color6</string>
 			<key>PostNotification</key>
-			<string>color6Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -128,7 +128,7 @@
 			<key>key</key>
 			<string>color7</string>
 			<key>PostNotification</key>
-			<string>color7Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -146,7 +146,7 @@
 			<key>key</key>
 			<string>color8</string>
 			<key>PostNotification</key>
-			<string>color8Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -164,7 +164,7 @@
 			<key>key</key>
 			<string>color9</string>
 			<key>PostNotification</key>
-			<string>color9Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -182,7 +182,7 @@
 			<key>key</key>
 			<string>color10</string>
 			<key>PostNotification</key>
-			<string>color10Changed</string>
+			<string>individualDotColorsChanged</string>
 		</dict>
 	</array>
 	<key>title</key>
