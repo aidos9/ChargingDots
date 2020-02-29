@@ -2,7 +2,7 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = ChargingDotsPrefs
 
-ChargingDotsPrefs_FILES = CHDRootListController.m CHDWidgetLayoutListController.m CHDColoursRootListController.m ../source/PreferencesManager.m
+ChargingDotsPrefs_FILES = CHDRootListController.m CHDWidgetLayoutListController.m CHDColoursRootListController.m ../source/PreferencesManager.m CHDColourAssignmentListController.m
 ChargingDotsPrefs_INSTALL_PATH = /Library/PreferenceBundles
 ChargingDotsPrefs_FRAMEWORKS = UIKit
 ChargingDotsPrefs_PRIVATE_FRAMEWORKS = Preferences
