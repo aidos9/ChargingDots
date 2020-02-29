@@ -29,3 +29,4 @@
 #define DEFAULT_HIDE_DATE_LABEL false
 #define DEFAULT_ORIENTATION Orientation_Horizontal
 #define DEFAULT_ORIENTATION_STRING @"Horizontal"
+#define DEFAULT_INDIVIDUAL_DOT_COLOURS_ENABLED false

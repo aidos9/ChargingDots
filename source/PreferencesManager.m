@@ -42,6 +42,18 @@
   [PreferencesManager setValue: DEFAULT_ROUNDING_STYLE_STRING forKey: @"roundingStyle"];
   [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_HIDE_DATE_LABEL] forKey: @"hideDateLabel"];
   [PreferencesManager setValue: DEFAULT_ORIENTATION_STRING forKey: @"orientation"];
+  [PreferencesManager setValue: [NSNumber numberWithBool: DEFAULT_INDIVIDUAL_DOT_COLOURS_ENABLED] forKey: @"individualDotColorsEnabled"];
+
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color1"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color2"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color3"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color4"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color5"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color6"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color7"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color8"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color9"];
+  [PreferencesManager setValue: DEFAULT_PRIMARY_COLOR forKey: @"color10"];
 }
 
 // Most of these methods are self-explanatory.
@@ -325,5 +337,32 @@
   }else {
     return DEFAULT_ORIENTATION;
   }
+}
+
++(bool) individualDotColorsEnabled{
+  id value = [self valueForKey: @"individualDotColorsEnabled"];
+
+  if (value == nil) {
+    return DEFAULT_INDIVIDUAL_DOT_COLOURS_ENABLED;
+  }
+  return [value boolValue];
+}
+
++(NSArray*) individualDotColors {
+  NSMutableArray* colors = [[NSMutableArray alloc] init];
+
+  for (int i = 1; i <= 10; i++) {
+    id value = [self valueForKey: [NSString stringWithFormat: @"color%d", i]];
+
+    if(value == nil || [value isEqual: @""])
+    {
+      value = DEFAULT_PRIMARY_COLOR;
+    }
+
+    UIColor* color = [UIColor cscp_colorFromHexString: value];
+    [colors addObject: color];
+  }
+
+  return colors;
 }
 @end
