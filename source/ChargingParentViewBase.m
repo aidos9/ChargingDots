@@ -244,7 +244,7 @@
         self->chargingPulseAnimation.fromValue=[NSNumber numberWithFloat:1.0];
         self->chargingPulseAnimation.toValue=[NSNumber numberWithFloat:0.0];
 
-        //[self->dots[i].layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
+        [self->dots[i].layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
       }
     }else {
       self->dots[i].backgroundColor = self->secondaryColor;
