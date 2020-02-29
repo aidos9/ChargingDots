@@ -9,6 +9,7 @@
   UIColor* primaryColor;
   UIColor* secondaryColor;
   UIColor* chargingColor;
+  UIColor* lowPowerColor;
   bool hasChargingColor;
   AnchorPosition anchorPosition;
   Mode mode;

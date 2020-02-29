@@ -29,6 +29,7 @@
 // These methods are called when battery related things change.
 -(void) batteryLevelDidChange: (id) notification;
 -(void) batteryStateDidChange: (id) notification;
+-(void) powerStateDidChange: (id) notification; // This is called when low power mode is toggled
 
 // These methods are called when a setting changes
 -(void) showAllTimeChanged;
@@ -48,4 +49,6 @@
 -(void) roundingStyleChanged;
 -(void) individualDotColorsEnabledChanged;
 -(void) individualDotColorsChanged;
+-(void) lowPowerColorChanged;
+-(void) lowPowerColorEnabledChanged;
 @end

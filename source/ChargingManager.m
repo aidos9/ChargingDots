@@ -64,6 +64,8 @@
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"primaryColorChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"secondaryColorChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"chargingColorChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"lowPowerColorChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"lowPowerColorEnabledChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"hasChargingColorChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"anchorPositionChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback, (__bridge CFStringRef)@"numberOfDotsChanged", NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
@@ -78,6 +80,7 @@
    // These are called when the battery changes states or percentage
   [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(batteryLevelDidChange:) name: UIDeviceBatteryLevelDidChangeNotification object: nil];
   [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(batteryStateDidChange:) name: UIDeviceBatteryStateDidChangeNotification object: nil];
+  [NSNotificationCenter.defaultCenter addObserver: self selector: @selector(powerStateDidChange:) name: NSProcessInfoPowerStateDidChangeNotification object: nil];
 }
 
 // a C method is required for the notification call back, which we use to call the member method that handles the notification
@@ -122,6 +125,10 @@ void notificationCallback (CFNotificationCenterRef center, void *observer, CFStr
     [self individualDotColorsEnabledChanged];
   }else if([name isEqual: @"individualDotColorsChanged"]) {
     [self individualDotColorsChanged];
+  }else if([name isEqual: @"lowPowerColorChanged"]) {
+    [self lowPowerColorChanged];
+  }else if([name isEqual: @"lowPowerColorEnabledChanged"]) {
+    [self lowPowerColorEnabledChanged];
   }
 }
 
@@ -204,6 +211,15 @@ void notificationCallback (CFNotificationCenterRef center, void *observer, CFStr
   }
 }
 
+-(void) powerStateDidChange: (id) notification {
+  if(self->parent != nil) {
+    // We need to do this because for some reason this notification often puts us not on the main thread.
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self->parent colorChanged];
+    });
+  }
+}
+
 -(void) indicatorModeChanged {
   if(self->parent != nil) {
     [self->parent indicatorModeChanged];
@@ -229,6 +245,18 @@ void notificationCallback (CFNotificationCenterRef center, void *observer, CFStr
 }
 
 -(void) individualDotColorsChanged {
+  if(self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+-(void) lowPowerColorChanged {
+  if(self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+-(void) lowPowerColorEnabledChanged {
   if(self->parent != nil) {
     [self->parent colorChanged];
   }

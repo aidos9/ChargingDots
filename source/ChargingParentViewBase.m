@@ -133,6 +133,7 @@
   self->primaryColor = [PreferencesManager primaryColor];
   self->secondaryColor = [PreferencesManager secondaryColor];
   self->chargingColor = [PreferencesManager chargingColor];
+  self->lowPowerColor = [PreferencesManager lowPowerColor];
   self->individualColors = [PreferencesManager individualDotColors];
   self->hasChargingColor = [PreferencesManager hasChargingColor];
 }
@@ -216,10 +217,13 @@
   }
 
   bool individualDotColorsEnabled = [PreferencesManager individualDotColorsEnabled];
+  bool lowPowerColorEnabled = [PreferencesManager lowPowerColorEnabled] && [[NSProcessInfo processInfo] isLowPowerModeEnabled];
 
   for(int i = 0; i < self->dots.count; i++) {
     if (i < self->numberOfDotsColored) {
-      if (individualDotColorsEnabled) {
+      if (lowPowerColorEnabled) {
+        self->dots[i].backgroundColor = self->lowPowerColor;
+      }else if (individualDotColorsEnabled) {
         self->dots[i].backgroundColor = self->individualColors[i];
       }else {
         self->dots[i].backgroundColor = self->primaryColor;
@@ -240,7 +244,7 @@
         self->chargingPulseAnimation.fromValue=[NSNumber numberWithFloat:1.0];
         self->chargingPulseAnimation.toValue=[NSNumber numberWithFloat:0.0];
 
-        [self->dots[i].layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
+        //[self->dots[i].layer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
       }
     }else {
       self->dots[i].backgroundColor = self->secondaryColor;
