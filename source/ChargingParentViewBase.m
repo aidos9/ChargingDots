@@ -283,6 +283,10 @@
     if ([PreferencesManager pulseChargingColor] && self->chargingPulseAnimation == nil) {
       [self addBarAnimation];
     }
+  } else if ([PreferencesManager lowPowerColorEnabled] &&
+             [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+    self->barFill.backgroundColor = self->lowPowerColor;
+    [self removeAnimation];
   } else {
     self->barFill.backgroundColor = self->primaryColor;
     [self removeAnimation];
