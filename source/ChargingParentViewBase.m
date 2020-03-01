@@ -147,6 +147,7 @@
   self->secondaryColor = [PreferencesManager secondaryColor];
   self->chargingColor = [PreferencesManager chargingColor];
   self->lowPowerColor = [PreferencesManager lowPowerColor];
+  self->lowBatteryColor = [PreferencesManager lowBatteryColor];
   self->individualColors = [PreferencesManager individualDotColors];
   self->hasChargingColor = [PreferencesManager hasChargingColor];
 }
@@ -248,7 +249,15 @@
         self->dots[i].backgroundColor = self->lowPowerColor;
       } else if (individualDotColorsEnabled) {
         self->dots[i].backgroundColor = self->individualColors[i];
-      } else {
+      }
+      #ifdef DEBUG_BATTERY_PERCENTAGE
+      else if ([PreferencesManager lowBatteryColorEnabled] && DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+      #else
+      else if ([PreferencesManager lowBatteryColorEnabled] && [UIDevice currentDevice].batteryLevel <= [PreferencesManager lowBatteryEnablePercentage]) {
+      #endif
+        self->dots[i].backgroundColor = self->lowBatteryColor;
+      }
+       else {
         self->dots[i].backgroundColor = self->primaryColor;
       }
 #ifdef DEBUG_BATTERY_PERCENTAGE
@@ -286,6 +295,14 @@
   } else if ([PreferencesManager lowPowerColorEnabled] &&
              [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
     self->barFill.backgroundColor = self->lowPowerColor;
+    [self removeAnimation];
+  }
+  #ifdef DEBUG_BATTERY_PERCENTAGE
+  else if ([PreferencesManager lowBatteryColorEnabled] && DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+  #else
+  else if ([PreferencesManager lowBatteryColorEnabled] && [UIDevice currentDevice].batteryLevel <= [PreferencesManager lowBatteryEnablePercentage]) {
+  #endif
+    self->barFill.backgroundColor = self->lowBatteryColor;
     [self removeAnimation];
   } else {
     self->barFill.backgroundColor = self->primaryColor;

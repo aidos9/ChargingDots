@@ -55,4 +55,7 @@
 - (void)individualDotColorsChanged;
 - (void)lowPowerColorChanged;
 - (void)lowPowerColorEnabledChanged;
+- (void)lowBatteryColorChanged;
+- (void)lowBatteryColorEnabledChanged;
+- (void)lowBatteryEnabledPercentageChanged;
 @end

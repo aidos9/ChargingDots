@@ -115,6 +115,15 @@
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
                                   (__bridge CFStringRef) @"individualDotColorsChanged", NULL,
                                   CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
+                                  (__bridge CFStringRef) @"lowBatteryColorChanged", NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
+                                  (__bridge CFStringRef) @"lowBatteryColorEnabledChanged", NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
+                                  (__bridge CFStringRef) @"lowBatteryEnabledPercentageChanged",
+                                  NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
 
   // These are called when the battery changes states or percentage
   [NSNotificationCenter.defaultCenter addObserver:self
@@ -180,6 +189,12 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
     [self lowPowerColorChanged];
   } else if ([name isEqual:@"lowPowerColorEnabledChanged"]) {
     [self lowPowerColorEnabledChanged];
+  } else if ([name isEqual:@"lowBatteryColorChanged"]) {
+    [self lowBatteryColorChanged];
+  } else if ([name isEqual:@"lowBatteryColorEnabledChanged"]) {
+    [self lowBatteryColorEnabledChanged];
+  } else if ([name isEqual:@"lowBatteryEnabledPercentageChanged"]) {
+    [self lowBatteryEnabledPercentageChanged];
   }
 }
 
@@ -311,6 +326,24 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
 }
 
 - (void)lowPowerColorEnabledChanged {
+  if (self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+- (void)lowBatteryColorChanged {
+  if (self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+- (void)lowBatteryColorEnabledChanged {
+  if (self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+- (void)lowBatteryEnabledPercentageChanged {
   if (self->parent != nil) {
     [self->parent colorChanged];
   }

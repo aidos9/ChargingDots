@@ -13,6 +13,7 @@
 + (UIColor*)lowPowerColor;    // The color used to indicate the phone is in low power mode.
 + (UIColor*)lowBatteryColor;  // The color used to show that the battery is running out
 + (bool)lowBatteryColorEnabled;
++ (float)lowBatteryEnablePercentage;
 + (AnchorPosition)anchorPosition;  // Where we should attempt to anchor the view.
 + (int)numberOfDots;
 + (bool)showAllTime;           // Show even when not charging

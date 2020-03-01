@@ -61,6 +61,8 @@
   [PreferencesManager setValue:DEFAULT_ORIENTATION_STRING forKey:@"orientation"];
   [PreferencesManager setValue:[NSNumber numberWithBool:DEFAULT_INDIVIDUAL_DOT_COLOURS_ENABLED]
                         forKey:@"individualDotColorsEnabled"];
+  [PreferencesManager setValue:[NSNumber numberWithFloat:DEFAULT_LOW_BATTERY_PERCENTAGE]
+                        forKey:@"lowBatteryEnablePercentage"];
 
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color1"];
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color2"];
@@ -123,6 +125,16 @@
   }
 
   return [UIColor cscp_colorFromHexString:value];
+}
+
++ (float)lowBatteryEnablePercentage {
+  NSString* value = [self valueForKey:@"lowBatteryEnablePercentage"];
+
+  if (value == nil) {
+    return DEFAULT_LOW_BATTERY_PERCENTAGE;
+  }
+
+  return [value floatValue];
 }
 
 + (bool)lowPowerColorEnabled {
