@@ -30,6 +30,9 @@
   [PreferencesManager setValue:DEFAULT_SECONDARY_COLOR forKey:@"secondaryColor"];
   [PreferencesManager setValue:DEFAULT_CHARGING_COLOR forKey:@"chargingColor"];
   [PreferencesManager setValue:DEFAULT_LOW_POWER_COLOR forKey:@"lowPowerColor"];
+  [PreferencesManager setValue:DEFAULT_LOW_BATTERY_COLOR forKey:@"lowBatteryColor"];
+  [PreferencesManager setValue:[NSNumber numberWithBool:DEFAULT_LOW_BATTERY_ENABLED]
+                        forKey:@"lowBatteryColorEnabled"];
   [PreferencesManager setValue:DEFAULT_ANCHOR_POSITION forKey:@"anchorPosition"];
   [PreferencesManager setValue:[NSNumber numberWithInt:DEFAULT_NUMBER_OF_DOTS]
                         forKey:@"numberOfDots"];
@@ -127,6 +130,26 @@
 
   if (value == nil) {
     return DEFAULT_LOW_POWER_ENABLED;
+  }
+
+  return [value boolValue];
+}
+
++ (UIColor*)lowBatteryColor {
+  NSString* value = [self valueForKey:@"lowBatteryColor"];
+
+  if (value == nil || [value isEqual:@""]) {
+    value = DEFAULT_LOW_BATTERY_COLOR;
+  }
+
+  return [UIColor cscp_colorFromHexString:value];
+}
+
++ (bool)lowBatteryColorEnabled {
+  id value = [self valueForKey:@"lowBatteryColorEnabled"];
+
+  if (value == nil) {
+    return DEFAULT_LOW_BATTERY_ENABLED;
   }
 
   return [value boolValue];

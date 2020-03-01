@@ -1,5 +1,6 @@
 // This header contains a number of constants that configure the default behaviour
 
+#define LOW_BATTERY_PERCENTAGE 0.2f // The value at which the low battery color should be shown
 #define Y_PERCENTAGE 0.268f   // Just a value that looked good on an iPhone X with no yOffset
 #define DEFAULT_THICKNESS 20  // The width for horizontal mode or the height for vertical mode.
 #define SELF_FADE_ANIMATION_DURATION \
@@ -14,6 +15,8 @@
 #define DEFAULT_CHARGING_COLOR @"0aa5fe"
 #define DEFAULT_LOW_POWER_COLOR @"fec10a"
 #define DEFAULT_LOW_POWER_ENABLED false
+#define DEFAULT_LOW_BATTERY_COLOR @"e34a40"
+#define DEFAULT_LOW_BATTERY_ENABLED false
 #define DEFAULT_ANCHOR_POSITION @"Center"
 #define DEFAULT_NUMBER_OF_DOTS 7
 #define DEFAULT_SHOW_ALL_TIME false
