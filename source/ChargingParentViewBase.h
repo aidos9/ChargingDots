@@ -1,7 +1,7 @@
 #import "enums.h"
 
 // We can also uncomment the definition below to test with custom battery levels.
-#define DEBUG_BATTERY_PERCENTAGE 0.25f
+//#define DEBUG_BATTERY_PERCENTAGE 0.25f
 
 // This interface is the base for the parent view which houses and manages the visual appearance of
 // the widget, subclasses are used to layout in different orientations.
