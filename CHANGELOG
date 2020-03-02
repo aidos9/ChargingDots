@@ -1,13 +1,15 @@
-v0.5.0 - Planned
+Requested Features (These probably won't be implemented before v1.0 release)
 * OLED dots (Experimental) [*]
+* Images instead of dots [*]
 
-v0.4.0 - Planned
+v0.4.0 - In Progress
 * Assign individual dots colours
 * Colours for low power mode
 * Colours when battery is low
-* Circle mode [*]
+* Circle mode
 * Outline mode [*]
 * Redesign mode interface [*]
+* Fixed pulse animation showing at 100% in bar mode
 
 v0.3.0
 * Added an option to change the rounding method for dots mode.
