@@ -315,7 +315,11 @@
 }
 
 - (void)updateViewColorsBar {
-  if ([self isCharging] && self->hasChargingColor) {
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  if ([self isCharging] && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE < 1.0f) {
+#else
+  if ([self isCharging] && self->hasChargingColor && [UIDevice currentDevice].batteryLevel < 1.0f) {
+#endif
     self->barFill.backgroundColor = self->chargingColor;
     if ([PreferencesManager pulseChargingColor] && self->chargingPulseAnimation == nil) {
       [self addBarAnimation];
@@ -348,10 +352,14 @@
     return;
   }
 
-  if ([self isCharging] && self->hasChargingColor) {
+  #ifdef DEBUG_BATTERY_PERCENTAGE
+    if ([self isCharging] && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE < 1.0f) {
+  #else
+    if ([self isCharging] && self->hasChargingColor && [UIDevice currentDevice].batteryLevel < 1.0f) {
+  #endif
     [self->circleView setFillColor:self->chargingColor];
     if ([PreferencesManager pulseChargingColor]) {
-      [self->circleView createAnimationWithDuration: [PreferencesManager fadeAnimationDuration]];
+      [self->circleView createAnimationWithDuration:[PreferencesManager fadeAnimationDuration]];
     }
   } else if ([PreferencesManager lowPowerColorEnabled] &&
              [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
