@@ -14,6 +14,6 @@
 - (void)setPercentageFilled:(float)percentageFilled;
 - (void)setFillColor:(UIColor*)fillColor;
 
-- (void)createAnimation;
+- (void)createAnimationWithDuration:(float)duration;
 - (void)removeAnimation;
 @end

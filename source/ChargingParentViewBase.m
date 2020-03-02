@@ -351,7 +351,7 @@
   if ([self isCharging] && self->hasChargingColor) {
     [self->circleView setFillColor:self->chargingColor];
     if ([PreferencesManager pulseChargingColor]) {
-      [self->circleView createAnimation];
+      [self->circleView createAnimationWithDuration: [PreferencesManager fadeAnimationDuration]];
     }
   } else if ([PreferencesManager lowPowerColorEnabled] &&
              [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {

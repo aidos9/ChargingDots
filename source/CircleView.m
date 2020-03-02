@@ -1,4 +1,5 @@
 #import "CircleView.h"
+#import "PreferencesManager.h"
 
 #define DegreesToRadians(x) ((x)*M_PI / 180.0)
 #define CIRCLE_OFFSET DegreesToRadians(-90)
@@ -23,9 +24,11 @@
   self->circleLayer = [CAShapeLayer layer];
 
   CGFloat radius = self.frame.size.width / 2;
-  // We need an offset because otherwise it will start from essentially pi/2 rad which is not what we want.
+  // We need an offset because otherwise it will start from essentially pi/2 rad which is not what
+  // we want.
   CGFloat startAngle = CIRCLE_OFFSET;
-  CGFloat endAngle = DegreesToRadians(360) * self->percentageFilled + CIRCLE_OFFSET; // Ensure we account for the offset
+  CGFloat endAngle = DegreesToRadians(360) * self->percentageFilled +
+                     CIRCLE_OFFSET;  // Ensure we account for the offset
 
   CGPoint center = CGPointMake(radius, radius);
   UIBezierPath *arc = [UIBezierPath bezierPath];
@@ -65,9 +68,19 @@
   [self drawCircle];
 }
 
-- (void)createAnimation {
+- (void)createAnimationWithDuration:(float)duration {
+  self->chargingPulseAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+  self->chargingPulseAnimation.duration = duration;
+  self->chargingPulseAnimation.repeatCount = HUGE_VALF;
+  self->chargingPulseAnimation.autoreverses = YES;
+  self->chargingPulseAnimation.fromValue = [NSNumber numberWithFloat:1.0];
+  self->chargingPulseAnimation.toValue = [NSNumber numberWithFloat:0.0];
+
+  [self->circleLayer addAnimation:self->chargingPulseAnimation forKey:@"animateOpacity"];
 }
 
 - (void)removeAnimation {
+  [self->circleLayer removeAllAnimations];
+  self->chargingPulseAnimation = nil;
 }
 @end
