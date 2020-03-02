@@ -33,6 +33,10 @@
       [self layoutBar];
       break;
     }
+    case Mode_Circle: {
+      [self layoutCircle];
+      break;
+    }
   }
 
   [self retrieveColors];
@@ -85,6 +89,10 @@
       [self removeBar];
       break;
     }
+    case Mode_Circle: {
+      [self removeCircle];
+      break;
+    }
   }
 
   self->mode = [PreferencesManager indicatorMode];
@@ -135,10 +143,19 @@
 }
 
 - (void)updateBatteryLevel {
-  if (self->mode == Mode_Dots) {
-    [self updateViewColors];
-  } else if (self->mode == Mode_Bar) {
-    [self updateBarPercentage];
+  switch (self->mode) {
+    case Mode_Dots: {
+      [self updateViewColors];
+      break;
+    }
+    case Mode_Bar: {
+      [self updateBarPercentage];
+      break;
+    }
+    case Mode_Circle: {
+      [self updateCirclePercentage];
+      break;
+    }
   }
 }
 
@@ -162,10 +179,19 @@
 }
 
 - (void)updateViewColors:(bool)force {
-  if (self->mode == Mode_Dots) {
-    [self updateViewColorsDots:force];
-  } else if (self->mode == Mode_Bar) {
-    [self updateViewColorsBar];
+  switch (self->mode) {
+    case Mode_Dots: {
+      [self updateViewColorsDots:force];
+      break;
+    }
+    case Mode_Bar: {
+      [self updateViewColorsBar];
+      break;
+    }
+    case Mode_Circle: {
+      [self updateViewColorsCircle];
+      break;
+    }
   }
 }
 
@@ -250,14 +276,16 @@
       } else if (individualDotColorsEnabled) {
         self->dots[i].backgroundColor = self->individualColors[i];
       }
-      #ifdef DEBUG_BATTERY_PERCENTAGE
-      else if ([PreferencesManager lowBatteryColorEnabled] && DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
-      #else
-      else if ([PreferencesManager lowBatteryColorEnabled] && [UIDevice currentDevice].batteryLevel <= [PreferencesManager lowBatteryEnablePercentage]) {
-      #endif
+#ifdef DEBUG_BATTERY_PERCENTAGE
+      else if ([PreferencesManager lowBatteryColorEnabled] &&
+               DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+#else
+      else if ([PreferencesManager lowBatteryColorEnabled] &&
+               [UIDevice currentDevice].batteryLevel <=
+                   [PreferencesManager lowBatteryEnablePercentage]) {
+#endif
         self->dots[i].backgroundColor = self->lowBatteryColor;
-      }
-       else {
+      } else {
         self->dots[i].backgroundColor = self->primaryColor;
       }
 #ifdef DEBUG_BATTERY_PERCENTAGE
@@ -297,11 +325,14 @@
     self->barFill.backgroundColor = self->lowPowerColor;
     [self removeAnimation];
   }
-  #ifdef DEBUG_BATTERY_PERCENTAGE
-  else if ([PreferencesManager lowBatteryColorEnabled] && DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
-  #else
-  else if ([PreferencesManager lowBatteryColorEnabled] && [UIDevice currentDevice].batteryLevel <= [PreferencesManager lowBatteryEnablePercentage]) {
-  #endif
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+#else
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           [UIDevice currentDevice].batteryLevel <=
+               [PreferencesManager lowBatteryEnablePercentage]) {
+#endif
     self->barFill.backgroundColor = self->lowBatteryColor;
     [self removeAnimation];
   } else {
@@ -310,6 +341,40 @@
   }
 
   self->bar.backgroundColor = self->secondaryColor;
+}
+
+- (void)updateViewColorsCircle {
+  if (self->circleView == nil) {
+    return;
+  }
+
+  if ([self isCharging] && self->hasChargingColor) {
+    [self->circleView setFillColor:self->chargingColor];
+    if ([PreferencesManager pulseChargingColor]) {
+      [self->circleView createAnimation];
+    }
+  } else if ([PreferencesManager lowPowerColorEnabled] &&
+             [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+    [self->circleView setFillColor:self->lowPowerColor];
+
+    [self->circleView removeAnimation];
+  }
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+#else
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           [UIDevice currentDevice].batteryLevel <=
+               [PreferencesManager lowBatteryEnablePercentage]) {
+#endif
+    [self->circleView setFillColor:self->lowBatteryColor];
+    [self->circleView removeAnimation];
+  } else {
+    [self->circleView setFillColor:self->primaryColor];
+    [self->circleView removeAnimation];
+  }
+
+  self->circleView.backgroundColor = self->secondaryColor;
 }
 
 - (void)fadeIn {
@@ -377,6 +442,17 @@
          [UIDevice currentDevice].batteryState == UIDeviceBatteryStateCharging;
 }
 
+- (void)removeCircle {
+  if (self->circleView == nil) {
+    return;
+  }
+
+  [self removeAnimation];
+
+  [self->circleView removeFromSuperview];
+  self->circleView = nil;
+}
+
 - (void)removeDots {
   if (self->dots == nil) {
     return;
@@ -405,21 +481,43 @@
 }
 
 - (void)removeAnimation {
-  if (self->mode == Mode_Dots) {
-    if (self->dots == nil || self->dots.count == 0 || self->pulsingIndex < 0 ||
-        self->pulsingIndex > self->dots.count) {
-      return;
+  switch (self->mode) {
+    case Mode_Dots: {
+      if (self->dots == nil || self->dots.count == 0 || self->pulsingIndex < 0 ||
+          self->pulsingIndex > self->dots.count) {
+        return;
+      }
+      [self->dots[self->pulsingIndex].layer removeAllAnimations];
+      break;
     }
-    [self->dots[self->pulsingIndex].layer removeAllAnimations];
-  } else if (self->mode == Mode_Bar) {
-    if (self->barFill == nil) {
-      return;
+    case Mode_Bar: {
+      if (self->barFill == nil) {
+        return;
+      }
+      [self->barFill.layer removeAllAnimations];
+      break;
     }
-    [self->barFill.layer removeAllAnimations];
+    case Mode_Circle: {
+      if (self->circleView == nil) {
+        return;
+      }
+
+      [self->circleView removeAnimation];
+      break;
+    }
   }
 
   self->pulsingIndex = -1;
   self->chargingPulseAnimation = nil;
+}
+
+- (void)updateCirclePercentage {
+  // Simple guard just to double check.
+  if (self->circleView == nil) {
+    return;
+  }
+
+  [self->circleView setPercentageFilled:[UIDevice currentDevice].batteryLevel];
 }
 
 // Default protocol implementations. Sub-classes should re-implement these
@@ -427,6 +525,9 @@
 }
 
 - (void)layoutBar {
+}
+
+- (void)layoutCircle {
 }
 
 - (void)lengthChanged {

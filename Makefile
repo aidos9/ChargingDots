@@ -4,7 +4,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = chargingdots
 
-chargingdots_FILES = source/Tweak.xm source/ChargingManager.m source/PreferencesManager.m source/ChargingParentViewHorizontal.m source/ChargingParentViewVertical.m source/ChargingParentViewBase.m
+chargingdots_FILES = source/Tweak.xm source/ChargingManager.m source/PreferencesManager.m source/ChargingParentViewHorizontal.m source/ChargingParentViewVertical.m source/ChargingParentViewBase.m source/CircleView.m
 chargingdots_CFLAGS = -fobjc-arc
 chargingdots_LDFLAGS += -lCSColorPicker
 

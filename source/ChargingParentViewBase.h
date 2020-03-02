@@ -1,7 +1,8 @@
+#import "CircleView.h"
 #import "enums.h"
 
 // We can also uncomment the definition below to test with custom battery levels.
-//#define DEBUG_BATTERY_PERCENTAGE 0.25f
+#define DEBUG_BATTERY_PERCENTAGE 0.05f
 
 // This interface is the base for the parent view which houses and manages the visual appearance of
 // the widget, subclasses are used to layout in different orientations.
@@ -25,6 +26,8 @@
   UIView* bar;
   // The view that is the fill colour
   UIView* barFill;
+  // The view that manages the circle.
+  CircleView* circleView;
   // Track the pulsing index so we don't create two animations and so we can remove the animation on
   // demand.
   int pulsingIndex;
@@ -57,6 +60,7 @@
 - (void)updateViewColors;
 - (void)updateViewColorsDots:(bool)force;
 - (void)updateViewColorsBar;
+- (void)updateViewColorsCircle;
 
 // Show/hide the parent view.
 - (void)fadeIn;
@@ -78,11 +82,13 @@
 // Removes the dots, bar or animation from their respective parent views.
 - (void)removeDots;
 - (void)removeBar;
+- (void)removeCircle;
 - (void)removeAnimation;
 
 // Default implementations. Sub-classes should re-implement these
 - (void)layoutDots;
 - (void)layoutBar;
+- (void)layoutCircle;
 - (void)lengthChanged;        // The view length has been changed
 - (void)updateBarPercentage;  // Changes the size of the fill bar.
 @end

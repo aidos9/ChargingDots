@@ -63,6 +63,9 @@
                         forKey:@"individualDotColorsEnabled"];
   [PreferencesManager setValue:[NSNumber numberWithFloat:DEFAULT_LOW_BATTERY_PERCENTAGE]
                         forKey:@"lowBatteryEnablePercentage"];
+  [PreferencesManager setValue:[NSNumber numberWithFloat:DEFAULT_BORDER_THICKNESS]
+                        forKey:@"circleBorderThickness"];
+  [PreferencesManager setValue:DEFAULT_BORDER_COLOR forKey:@"borderColor"];
 
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color1"];
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color2"];
@@ -323,6 +326,8 @@
     return Mode_Bar;
   } else if ([value isEqual:@"Dots"]) {
     return Mode_Dots;
+  } else if ([value isEqual:@"Circle"]) {
+    return Mode_Circle;
   } else {
     return DEFAULT_INDICATOR_MODE;
   }
@@ -414,5 +419,31 @@
   }
 
   return colors;
+}
+
++ (UIColor*)borderColor {
+  NSString* value = [self valueForKey:@"borderColor"];
+
+  if (value == nil || [value isEqual:@""]) {
+    value = DEFAULT_BORDER_COLOR;
+  }
+
+  return [UIColor cscp_colorFromHexString:value];
+}
+
++ (float)circleBorderThickness {
+  id value = [self valueForKey:@"circleBorderThickness"];
+
+  if (value == nil) {
+    return DEFAULT_BORDER_THICKNESS;
+  }
+
+  float val = [value floatValue];
+
+  if (val < 0) {
+    return 0;
+  } else {
+    return val;
+  }
 }
 @end

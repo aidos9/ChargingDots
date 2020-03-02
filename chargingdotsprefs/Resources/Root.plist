@@ -88,11 +88,13 @@
 			<array>
 				<string>Dots</string>
 				<string>Bar</string>
+				<string>Circle</string>
 			</array>
 			<key>validTitles</key>
 			<array>
 				<string>Dots</string>
 				<string>Bar</string>
+				<string>Circle</string>
 			</array>
 			<key>defaults</key>
 			<string>com.aidos9.chargingdotsprefs</string>
