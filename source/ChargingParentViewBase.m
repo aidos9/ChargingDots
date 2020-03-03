@@ -352,11 +352,11 @@
     return;
   }
 
-  #ifdef DEBUG_BATTERY_PERCENTAGE
-    if ([self isCharging] && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE < 1.0f) {
-  #else
-    if ([self isCharging] && self->hasChargingColor && [UIDevice currentDevice].batteryLevel < 1.0f) {
-  #endif
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  if ([self isCharging] && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE < 1.0f) {
+#else
+  if ([self isCharging] && self->hasChargingColor && [UIDevice currentDevice].batteryLevel < 1.0f) {
+#endif
     [self->circleView setFillColor:self->chargingColor];
     if ([PreferencesManager pulseChargingColor]) {
       [self->circleView createAnimationWithDuration:[PreferencesManager fadeAnimationDuration]];
@@ -525,7 +525,11 @@
     return;
   }
 
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  [self->circleView setPercentageFilled:DEBUG_BATTERY_PERCENTAGE];
+#else
   [self->circleView setPercentageFilled:[UIDevice currentDevice].batteryLevel];
+#endif
 }
 
 // Default protocol implementations. Sub-classes should re-implement these
