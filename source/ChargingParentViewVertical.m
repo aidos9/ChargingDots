@@ -99,4 +99,29 @@
   self->barFill = [[UIView alloc] initWithFrame:fillBarRect];
   [self->bar addSubview:self->barFill];
 }
+
+- (void)layoutCircle {
+  if (self->circleView != nil) {
+    [self removeCircle];
+  }
+
+  CGFloat circleDiameter =
+      self.frame.size.height *
+      [PreferencesManager dotRadius];  // Since dotRadius is a percentage value anyway
+
+  CGRect circleLocation =
+      CGRectMake(self.frame.size.width/2 - circleDiameter/2, self.frame.size.height/2 - circleDiameter/2, circleDiameter, circleDiameter);
+
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  self->circleView = [[CircleView alloc] initWithFrame:circleLocation
+                                  withPercentageFilled:DEBUG_BATTERY_PERCENTAGE
+                                         withFillColor:self->primaryColor];
+#else
+  self->circleView = [[CircleView alloc] initWithFrame:circleLocation
+                                  withPercentageFilled:[UIDevice currentDevice].batteryLevel
+                                         withFillColor:self->primaryColor];
+#endif
+  [self addSubview:self->circleView];
+  [self->circleView drawCircle];
+}
 @end
