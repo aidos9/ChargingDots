@@ -1,13 +1,20 @@
-v0.5.0 - Planned
+Requested Features (These won't be implemented before v1.0 release)
 * OLED dots (Experimental) [*]
+* Support for iOS12 and iOS11 [*] - Can't do this without a tester.
 
-v0.4.0 - Planned
-* Assign individual dots colours [*]
-* Colours for low power mode [*]
-* Colours when battery percentage is low [*]
-* Circle mode [*]
-* Outline mode [*]
+v1.0.0 - Upcoming
+* Images mode [*]
 * Redesign mode interface [*]
+* Support for apple watch and AirPods charge [*] - This needs investigation, may not be possible
+* Allow for displaying more than just one widget [*]
+
+v0.4.0 - Final Testing
+* Assign individual dots colours
+* Colours for low power mode
+* Colours when battery is low
+* Circle mode
+* Outline mode
+* Fixed pulse animation showing at 100% in bar mode
 
 v0.3.0
 * Added an option to change the rounding method for dots mode.
