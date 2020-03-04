@@ -1,4 +1,4 @@
-@interface CircleView : UIView {
+@interface CircleModeView : UIView {
   float percentageFilled;
   UIColor* fillColor;
   CABasicAnimation* chargingPulseAnimation;

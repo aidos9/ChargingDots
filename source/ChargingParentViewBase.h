@@ -1,4 +1,4 @@
-#import "CircleView.h"
+#import "CircleModeView.h"
 #import "enums.h"
 
 // We can also uncomment the definition below to test with custom battery levels.
@@ -27,7 +27,7 @@
   // The view that is the fill colour
   UIView* barFill;
   // The view that manages the circle.
-  CircleView* circleView;
+  CircleModeView* circleView;
   // Track the pulsing index so we don't create two animations and so we can remove the animation on
   // demand.
   int pulsingIndex;

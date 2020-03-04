@@ -1,10 +1,10 @@
-#import "CircleView.h"
+#import "CircleModeView.h"
 #import "PreferencesManager.h"
 
 #define DegreesToRadians(x) ((x)*M_PI / 180.0)
 #define CIRCLE_OFFSET DegreesToRadians(-90)
 
-@implementation CircleView
+@implementation CircleModeView
 
 - (id)initWithFrame:(CGRect)frame
     withPercentageFilled:(float)iPercentageFilled

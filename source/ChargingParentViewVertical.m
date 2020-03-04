@@ -113,11 +113,11 @@
       CGRectMake(self.frame.size.width/2 - circleDiameter/2, self.frame.size.height/2 - circleDiameter/2, circleDiameter, circleDiameter);
 
 #ifdef DEBUG_BATTERY_PERCENTAGE
-  self->circleView = [[CircleView alloc] initWithFrame:circleLocation
+  self->circleView = [[CircleModeView alloc] initWithFrame:circleLocation
                                   withPercentageFilled:DEBUG_BATTERY_PERCENTAGE
                                          withFillColor:self->primaryColor];
 #else
-  self->circleView = [[CircleView alloc] initWithFrame:circleLocation
+  self->circleView = [[CircleModeView alloc] initWithFrame:circleLocation
                                   withPercentageFilled:[UIDevice currentDevice].batteryLevel
                                          withFillColor:self->primaryColor];
 #endif
