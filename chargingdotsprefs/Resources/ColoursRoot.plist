@@ -231,7 +231,7 @@
 			<key>cellClass</key>
 			<string>CSColorDisplayCell</string>
 			<key>label</key>
-			<string>Empty Color</string>
+			<string>Track Color</string>
 			<key>fallback</key>
 			<string>997a7d82</string>
 			<key>alpha</key>
