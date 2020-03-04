@@ -64,8 +64,8 @@
   [PreferencesManager setValue:[NSNumber numberWithFloat:DEFAULT_LOW_BATTERY_PERCENTAGE]
                         forKey:@"lowBatteryEnablePercentage"];
   [PreferencesManager setValue:[NSNumber numberWithFloat:DEFAULT_BORDER_THICKNESS]
-                        forKey:@"circleBorderThickness"];
-  [PreferencesManager setValue:DEFAULT_BORDER_COLOR forKey:@"borderColor"];
+                        forKey:@"outlineBorderThickness"];
+  [PreferencesManager setValue:DEFAULT_BORDER_COLOR forKey:@"outlineEmptyColor"];
 
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color1"];
   [PreferencesManager setValue:DEFAULT_PRIMARY_COLOR forKey:@"color2"];
@@ -328,6 +328,8 @@
     return Mode_Dots;
   } else if ([value isEqual:@"Circle"]) {
     return Mode_Circle;
+  } else if ([value isEqual:@"Outline"]) {
+    return Mode_Outline;
   } else {
     return DEFAULT_INDICATOR_MODE;
   }
@@ -421,8 +423,8 @@
   return colors;
 }
 
-+ (UIColor*)borderColor {
-  NSString* value = [self valueForKey:@"borderColor"];
++ (UIColor*)outlineEmptyColor {
+  NSString* value = [self valueForKey:@"outlineEmptyColor"];
 
   if (value == nil || [value isEqual:@""]) {
     value = DEFAULT_BORDER_COLOR;
@@ -431,8 +433,8 @@
   return [UIColor cscp_colorFromHexString:value];
 }
 
-+ (float)circleBorderThickness {
-  id value = [self valueForKey:@"circleBorderThickness"];
++ (float)outlineBorderThickness {
+  id value = [self valueForKey:@"outlineBorderThickness"];
 
   if (value == nil) {
     return DEFAULT_BORDER_THICKNESS;
@@ -440,8 +442,8 @@
 
   float val = [value floatValue];
 
-  if (val < 0) {
-    return 0;
+  if (val < 0.1) {
+    return 0.1;
   } else {
     return val;
   }

@@ -16,6 +16,7 @@ typedef enum {
   Mode_Dots,
   Mode_Bar,
   Mode_Circle,
+  Mode_Outline,
 } Mode;
 
 typedef enum {

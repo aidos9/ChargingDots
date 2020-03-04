@@ -124,6 +124,12 @@
   CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
                                   (__bridge CFStringRef) @"lowBatteryEnabledPercentageChanged",
                                   NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
+                                  (__bridge CFStringRef) @"outlineEmptyColorChanged", NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
+  CFNotificationCenterAddObserver(center, (__bridge const void *)(self), notificationCallback,
+                                  (__bridge CFStringRef) @"outlineBorderThicknessChanged", NULL,
+                                  CFNotificationSuspensionBehaviorDeliverImmediately);
 
   // These are called when the battery changes states or percentage
   [NSNotificationCenter.defaultCenter addObserver:self
@@ -195,6 +201,10 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
     [self lowBatteryColorEnabledChanged];
   } else if ([name isEqual:@"lowBatteryEnabledPercentageChanged"]) {
     [self lowBatteryEnabledPercentageChanged];
+  } else if ([name isEqual:@"outlineEmptyColorChanged"]) {
+    [self outlineEmptyColorChanged];
+  } else if ([name isEqual:@"outlineBorderThicknessChanged"]) {
+    [self outlineBorderThicknessChanged];
   }
 }
 
@@ -346,6 +356,18 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
 - (void)lowBatteryEnabledPercentageChanged {
   if (self->parent != nil) {
     [self->parent colorChanged];
+  }
+}
+
+- (void)outlineEmptyColorChanged {
+  if (self->parent != nil) {
+    [self->parent colorChanged];
+  }
+}
+
+- (void)outlineBorderThicknessChanged {
+  if (self->parent != nil) {
+    [self->parent thicknessChanged];
   }
 }
 @end

@@ -36,8 +36,8 @@
 + (NSArray<UIColor*>*)individualDotColors;  // An array of all the dot colours
 
 // Circle/Outline mode config
-+ (UIColor*)borderColor;
-+ (float)circleBorderThickness;
++ (UIColor*)outlineEmptyColor;
++ (float)outlineBorderThickness;
 
 // Base Methods used for low level operation with the preferences.
 + (void)setValue:(id)value forKey:(NSString*)key;

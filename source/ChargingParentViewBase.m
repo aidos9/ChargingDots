@@ -37,6 +37,10 @@
       [self layoutCircle];
       break;
     }
+    case Mode_Outline: {
+      [self layoutOutline];
+      break;
+    }
   }
 
   [self retrieveColors];
@@ -93,6 +97,10 @@
       [self removeCircle];
       break;
     }
+    case Mode_Outline: {
+      [self removeOutline];
+      break;
+    }
   }
 
   self->mode = [PreferencesManager indicatorMode];
@@ -142,6 +150,14 @@
   }
 }
 
+- (void)thicknessChanged {
+  if(self->outlineView == nil) {
+    return;
+  }
+
+  [self->outlineView setLineWidth: [PreferencesManager outlineBorderThickness]];
+}
+
 - (void)updateBatteryLevel {
   switch (self->mode) {
     case Mode_Dots: {
@@ -156,6 +172,10 @@
       [self updateCirclePercentage];
       break;
     }
+    case Mode_Outline: {
+      [self updateOutlinePercentage];
+      break;
+    }
   }
 }
 
@@ -167,6 +187,7 @@
   self->lowBatteryColor = [PreferencesManager lowBatteryColor];
   self->individualColors = [PreferencesManager individualDotColors];
   self->hasChargingColor = [PreferencesManager hasChargingColor];
+  self->outlineEmptyColor = [PreferencesManager outlineEmptyColor];
 }
 
 - (void)colorChanged {
@@ -190,6 +211,10 @@
     }
     case Mode_Circle: {
       [self updateViewColorsCircle];
+      break;
+    }
+    case Mode_Outline: {
+      [self updateViewColorsOutline];
       break;
     }
   }
@@ -385,6 +410,46 @@
   self->circleView.backgroundColor = self->secondaryColor;
 }
 
+- (void)updateViewColorsOutline {
+  if (self->outlineView == nil) {
+    return;
+  }
+
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  if ([self isCharging] && self->hasChargingColor && DEBUG_BATTERY_PERCENTAGE < 1.0f) {
+#else
+  if ([self isCharging] && self->hasChargingColor && [UIDevice currentDevice].batteryLevel < 1.0f) {
+#endif
+    [self->outlineView setFillColor:self->chargingColor];
+    if ([PreferencesManager pulseChargingColor]) {
+      [self->outlineView createAnimationWithDuration:[PreferencesManager fadeAnimationDuration]];
+    }
+  } else if ([PreferencesManager lowPowerColorEnabled] &&
+             [[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
+    [self->outlineView setFillColor:self->lowPowerColor];
+
+    [self->outlineView removeAnimation];
+  }
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           DEBUG_BATTERY_PERCENTAGE <= [PreferencesManager lowBatteryEnablePercentage]) {
+#else
+  else if ([PreferencesManager lowBatteryColorEnabled] &&
+           [UIDevice currentDevice].batteryLevel <=
+               [PreferencesManager lowBatteryEnablePercentage]) {
+#endif
+    [self->outlineView setFillColor:self->lowBatteryColor];
+    [self->outlineView removeAnimation];
+  } else {
+    [self->outlineView setFillColor:self->primaryColor];
+    [self->outlineView removeAnimation];
+  }
+
+  [self->outlineView setEmptyColor: self->outlineEmptyColor];
+  [self->outlineView setBackdropColor: self->secondaryColor];
+  [self->outlineView redoColours];
+}
+
 - (void)fadeIn {
   if (self.alpha == 1.0f) {
     return;  // So we don't get two fade ins
@@ -461,6 +526,17 @@
   self->circleView = nil;
 }
 
+- (void)removeOutline {
+  if (self->outlineView == nil) {
+    return;
+  }
+
+  [self removeAnimation];
+
+  [self->outlineView removeFromSuperview];
+  self->outlineView = nil;
+}
+
 - (void)removeDots {
   if (self->dots == nil) {
     return;
@@ -513,6 +589,14 @@
       [self->circleView removeAnimation];
       break;
     }
+    case Mode_Outline: {
+      if (self->outlineView == nil) {
+        return;
+      }
+
+      [self->outlineView removeAnimation];
+      break;
+    }
   }
 
   self->pulsingIndex = -1;
@@ -532,6 +616,19 @@
 #endif
 }
 
+- (void)updateOutlinePercentage {
+  // Simple guard just to double check.
+  if (self->outlineView == nil) {
+    return;
+  }
+
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  [self->outlineView setPercentageFilled:DEBUG_BATTERY_PERCENTAGE];
+#else
+  [self->outlineView setPercentageFilled:[UIDevice currentDevice].batteryLevel];
+#endif
+}
+
 // Default protocol implementations. Sub-classes should re-implement these
 - (void)layoutDots {
 }
@@ -540,6 +637,9 @@
 }
 
 - (void)layoutCircle {
+}
+
+- (void)layoutOutline {
 }
 
 - (void)lengthChanged {

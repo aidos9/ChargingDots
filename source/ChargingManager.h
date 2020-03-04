@@ -58,4 +58,6 @@
 - (void)lowBatteryColorChanged;
 - (void)lowBatteryColorEnabledChanged;
 - (void)lowBatteryEnabledPercentageChanged;
+- (void)outlineEmptyColorChanged;
+- (void)outlineBorderThicknessChanged;
 @end

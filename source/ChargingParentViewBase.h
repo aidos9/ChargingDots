@@ -1,8 +1,9 @@
 #import "CircleModeView.h"
+#import "OutlineModeView.h"
 #import "enums.h"
 
 // We can also uncomment the definition below to test with custom battery levels.
-//#define DEBUG_BATTERY_PERCENTAGE 1.0f
+//#define DEBUG_BATTERY_PERCENTAGE 0.75f
 
 // This interface is the base for the parent view which houses and manages the visual appearance of
 // the widget, subclasses are used to layout in different orientations.
@@ -13,6 +14,7 @@
   UIColor* chargingColor;
   UIColor* lowPowerColor;
   UIColor* lowBatteryColor;
+  UIColor* outlineEmptyColor;
   float lowBatteryEnablePercentage;
   bool hasChargingColor;
   AnchorPosition anchorPosition;
@@ -28,6 +30,8 @@
   UIView* barFill;
   // The view that manages the circle.
   CircleModeView* circleView;
+  // The view that manages the outline circle.
+  OutlineModeView* outlineView;
   // Track the pulsing index so we don't create two animations and so we can remove the animation on
   // demand.
   int pulsingIndex;
@@ -47,6 +51,9 @@
 - (void)yChanged;
 - (void)xChanged;
 
+// Called when the outline mode line thickness has changed
+- (void)thicknessChanged;
+
 // Called when the battery level has changed.
 - (void)updateBatteryLevel;
 
@@ -61,6 +68,7 @@
 - (void)updateViewColorsDots:(bool)force;
 - (void)updateViewColorsBar;
 - (void)updateViewColorsCircle;
+- (void)updateViewColorsOutline;
 
 // Show/hide the parent view.
 - (void)fadeIn;
@@ -83,12 +91,16 @@
 - (void)removeDots;
 - (void)removeBar;
 - (void)removeCircle;
+- (void)removeOutline;
 - (void)removeAnimation;
 
 // Default implementations. Sub-classes should re-implement these
 - (void)layoutDots;
 - (void)layoutBar;
 - (void)layoutCircle;
+- (void)layoutOutline;
 - (void)lengthChanged;        // The view length has been changed
 - (void)updateBarPercentage;  // Changes the size of the fill bar.
+- (void)updateCirclePercentage;
+- (void)updateOutlinePercentage;
 @end

@@ -110,15 +110,48 @@
 
 #ifdef DEBUG_BATTERY_PERCENTAGE
   self->circleView = [[CircleModeView alloc] initWithFrame:circleLocation
-                                  withPercentageFilled:DEBUG_BATTERY_PERCENTAGE
-                                         withFillColor:self->primaryColor];
+                                      withPercentageFilled:DEBUG_BATTERY_PERCENTAGE
+                                             withFillColor:self->primaryColor];
 #else
   self->circleView = [[CircleModeView alloc] initWithFrame:circleLocation
-                                  withPercentageFilled:[UIDevice currentDevice].batteryLevel
-                                         withFillColor:self->primaryColor];
+                                      withPercentageFilled:[UIDevice currentDevice].batteryLevel
+                                             withFillColor:self->primaryColor];
 #endif
   [self addSubview:self->circleView];
   [self->circleView drawCircle];
+}
+
+- (void)layoutOutline {
+  if (self->outlineView != nil) {
+    [self removeOutline];
+  }
+
+  CGFloat circleDiameter =
+      self.frame.size.width *
+      [PreferencesManager dotRadius];  // Since dotRadius is a percentage value anyway
+
+  CGRect circleLocation =
+      CGRectMake(self.frame.size.width / 2 - circleDiameter / 2, 0, circleDiameter, circleDiameter);
+
+#ifdef DEBUG_BATTERY_PERCENTAGE
+  self->outlineView =
+      [[OutlineModeView alloc] initWithFrame:circleLocation
+                        withPercentageFilled:DEBUG_BATTERY_PERCENTAGE
+                               withFillColor:self->primaryColor
+                              withEmptyColor:self->outlineEmptyColor
+                               withLineWidth:[PreferencesManager outlineBorderThickness]
+                           withBackdropColor:self->secondaryColor];
+#else
+  self->outlineView =
+      [[OutlineModeView alloc] initWithFrame:circleLocation
+                        withPercentageFilled:[UIDevice currentDevice].batteryLevel
+                               withFillColor:self->primaryColor
+                              withEmptyColor:self->outlineEmptyColor
+                               withLineWidth:[PreferencesManager outlineBorderThickness]
+                           withBackdropColor:self->secondaryColor];
+#endif
+  [self addSubview:self->outlineView];
+  [self->outlineView drawCircle];
 }
 
 @end
