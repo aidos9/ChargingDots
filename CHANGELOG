@@ -7,8 +7,9 @@ v1.0.0 - Upcoming
 * Redesign mode interface [*]
 * Support for apple watch and AirPods charge [*] - This needs investigation, may not be possible
 * Allow for displaying more than just one widget [*]
+* Backup, restore and share configs [*]
 
-v0.4.0 - Final Testing
+v0.4.0
 * Assign individual dots colours
 * Colours for low power mode
 * Colours when battery is low
