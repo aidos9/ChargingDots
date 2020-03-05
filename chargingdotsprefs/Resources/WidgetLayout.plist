@@ -245,6 +245,34 @@
 				<key>PostNotification</key>
 				<string>numberOfDotsChanged</string>
 			</dict>
+
+			<!-- Outline Mode Line Thickness -->
+			<dict>
+				<key>cell</key>
+				<string>PSGroupCell</string>
+				<key>label</key>
+				<string>Line Thickness</string>
+			</dict>
+			<dict>
+				<key>cell</key>
+				<string>PSSliderCell</string>
+				<key>default</key>
+				<real>4.0</real>
+				<key>max</key>
+				<real>30</real>
+				<key>min</key>
+				<real>0.1</real>
+				<key>isSegmented</key>
+				<false/>
+				<key>showValue</key>
+				<true/>
+				<key>defaults</key>
+				<string>com.aidos9.chargingdotsprefs</string>
+				<key>key</key>
+				<string>outlineBorderThickness</string>
+				<key>PostNotification</key>
+				<string>outlineBorderThicknessChanged</string>
+			</dict>
 		</array>
 		<key>title</key>
 		<string>Layout</string>

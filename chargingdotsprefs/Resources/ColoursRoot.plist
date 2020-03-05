@@ -47,9 +47,89 @@
 			<key>cellClass</key>
 			<string>CSColorDisplayCell</string>
 			<key>label</key>
+			<string>Low Power Color</string>
+			<key>fallback</key>
+			<string>fec10a</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowPowerColor</string>
+			<key>PostNotification</key>
+			<string>lowPowerColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enable Low Power Color</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowPowerColorEnabled</string>
+			<key>PostNotification</key>
+			<string>lowPowerColorEnabledChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
+			<string>Low Battery Color</string>
+			<key>fallback</key>
+			<string>e34a40</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowBatteryColor</string>
+			<key>PostNotification</key>
+			<string>lowBatteryColorChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>label</key>
+			<string>Enable Percentage: </string>
+			<key>default</key>
+			<string>0.2</string>
+			<key>isDecimalPad</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowBatteryEnablePercentage</string>
+			<key>PostNotification</key>
+			<string>lowBatteryEnabledPercentageChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enable Low Battery Color</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>lowBatteryColorEnabled</string>
+			<key>PostNotification</key>
+			<string>lowBatteryColorEnabledChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
 			<string>Charging Color</string>
 			<key>fallback</key>
-			<string>ebab21</string>
+			<string>0aa5fe</string>
 			<key>alpha</key>
 			<true/>
 			<key>defaults</key>
@@ -102,6 +182,66 @@
 			<string>fadeAnimationDuration</string>
 			<key>PostNotification</key>
 			<string>fadeAnimationDurationChanged</string>
+		</dict>
+
+		<!-- Individual colours group -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Individual colours</string>
+			<key>footerText</key>
+			<string>Assign an individual colour to each dot. This does not override low power mode colour, charging colour or low battery colour.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>detail</key>
+			<string>CHDColourAssignmentListController</string>
+			<key>label</key>
+			<string>Individual Colours</string>
+			<key>isController</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>label</key>
+			<string>Enabled</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>individualDotColorsEnabled</string>
+			<key>PostNotification</key>
+			<string>individualDotColorsEnabledChanged</string>
+		</dict>
+
+		<!-- Outline mode color group -->
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Outline Mode Colours</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>cellClass</key>
+			<string>CSColorDisplayCell</string>
+			<key>label</key>
+			<string>Track Color</string>
+			<key>fallback</key>
+			<string>997a7d82</string>
+			<key>alpha</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.aidos9.chargingdotsprefs</string>
+			<key>key</key>
+			<string>outlineEmptyColor</string>
+			<key>PostNotification</key>
+			<string>outlineEmptyColorChanged</string>
 		</dict>
 	</array>
 	<key>title</key>

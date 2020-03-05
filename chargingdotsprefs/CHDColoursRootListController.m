@@ -3,11 +3,11 @@
 @implementation CHDColoursRootListController
 
 - (NSArray *)specifiers {
-	if (!_specifiers) {
-		_specifiers = [self loadSpecifiersFromPlistName:@"ColoursRoot" target:self];
-	}
+  if (!_specifiers) {
+    _specifiers = [self loadSpecifiersFromPlistName:@"ColoursRoot" target:self];
+  }
 
-	return _specifiers;
+  return _specifiers;
 }
 
 @end
