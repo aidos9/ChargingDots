@@ -9,6 +9,9 @@ v1.0.0 - Upcoming
 * Allow for displaying more than just one widget [*]
 * Backup, restore and share configs [*]
 
+v0.4.1
+* Fixed bug where low battery colour wouldn't always appear in the bar, circle and outline modes. 
+
 v0.4.0
 * Assign individual dots colours
 * Colours for low power mode
