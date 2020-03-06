@@ -159,9 +159,9 @@
 }
 
 - (void)updateBatteryLevel {
+  [self updateViewColors];
   switch (self->mode) {
     case Mode_Dots: {
-      [self updateViewColors];
       break;
     }
     case Mode_Bar: {
